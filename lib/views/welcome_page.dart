@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:from_css_color/from_css_color.dart';
-import 'package:parking_app/views/login_page.dart';
+import 'package:report_app/views/login_page.dart'; // 👈 IMPORT LOGIN PAGE
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -27,7 +27,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   width: 250,
                   height: 250,
                   child: Lottie.asset(
-                    'assets/lottie/driver.json',
+                    'assets/lottie/report.json',
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -35,7 +35,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
 
             Text(
-              "Park-In, Book Easily",
+              "Report Easily!",
               style: GoogleFonts.poppins(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class _WelcomePageState extends State<WelcomePage> {
             const SizedBox(height: 20),
 
             Text(
-              "Easy Parking at Your Fingertips",
+              "Track Every Report in Real-Time",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -56,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
 
             Text(
-              "Book your parking spot anytime, anywhere.",
+              "Improving Facilities Through Technology",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -69,14 +69,15 @@ class _WelcomePageState extends State<WelcomePage> {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                // 👈 KE LOGIN PAGE DULU
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(350, 50),
-                backgroundColor: fromCssColor("#3D6AFF"),
+                backgroundColor: fromCssColor("#547792"),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -88,11 +89,11 @@ class _WelcomePageState extends State<WelcomePage> {
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 15,
-                      fontWeight: .bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios, color: Colors.white,)
+                  const Spacer(),
+                  const Icon(Icons.arrow_forward_ios, color: Colors.white),
                 ],
               ),
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:from_css_color/from_css_color.dart';
-import 'package:parking_app/views/welcome_page.dart';
+import 'package:report_app/views/welcome_page.dart';
 
 class BoardingPage extends StatefulWidget {
   const BoardingPage({super.key});
@@ -23,25 +23,41 @@ class _BoardingPageState extends State<BoardingPage> {
             Expanded(
               flex: 5,
               child: Lottie.asset(
-                'assets/lottie/boardcar.json',
+                'assets/lottie/fix.json',
                 fit: BoxFit.contain,
               ),
             ),
 
-            Text(
-              "Welcome to Park-In!",
-              style: GoogleFonts.poppins(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: fromCssColor("#070625"),
-              ),
+            RichText(
+              text: TextSpan(
+                style: GoogleFonts.poppins(
+                  color: fromCssColor("#070625"),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold
+                ),
+                children: <TextSpan>[
+                  
+                  TextSpan(
+                    text: "Welcome to "
+                  ),
+                  
+                  TextSpan(
+                    text: "Maintena",
+                    style: GoogleFonts.poppins(
+                      color: fromCssColor("#FAB95B"),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                    )
+                  )
+                ]
+              )
             ),
             
 
             const SizedBox(height: 20),
 
             Text(
-              "Easy Parking at Your Fingertips",
+              "Spot a Problem? Report It Instantly.",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -51,7 +67,7 @@ class _BoardingPageState extends State<BoardingPage> {
             ),
 
             Text(
-              "Book your parking spot anytime, anywhere.",
+              "Report Facility Issues Quickly and Easily",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -64,7 +80,7 @@ class _BoardingPageState extends State<BoardingPage> {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const WelcomePage(),
@@ -73,7 +89,7 @@ class _BoardingPageState extends State<BoardingPage> {
               },
               style: ElevatedButton.styleFrom(
                 fixedSize: const Size(350, 50),
-                backgroundColor: fromCssColor("#3D6AFF"),
+                backgroundColor: fromCssColor("#547792"),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -83,7 +99,7 @@ class _BoardingPageState extends State<BoardingPage> {
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 15,
-                  fontWeight: .bold
+                  fontWeight: FontWeight.bold
                 ),
               ),
             ),
