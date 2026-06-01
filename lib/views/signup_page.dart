@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:report_app/views/home_page.dart';
+import 'package:report_app/services/auth_service.dart';
 import 'package:report_app/views/login_page.dart';
 
 class SignupPage extends StatefulWidget {
@@ -13,6 +13,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // ✅ TAMBAHKAN INI
+  bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +27,11 @@ class _SignupPageState extends State<SignupPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 40),
+                  padding: const EdgeInsets.only(top: 40),
                   child: SizedBox(
                     height: 250,
                     width: 250,
@@ -43,15 +50,14 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 Container(
-                  // height: 20,
                   width: double.infinity,
-                  decoration: BoxDecoration(
-                    // color: Colors.white
-                  ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30,
+                      vertical: 20,
+                    ),
                     child: Column(
-                      crossAxisAlignment: .start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Name",
@@ -60,11 +66,12 @@ class _SignupPageState extends State<SignupPage> {
                             color: Colors.grey[600],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Column(
-                          crossAxisAlignment: .start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextFormField(
+                              controller: _nameController,
                               decoration: InputDecoration(
                                 hintText: "Enter your name",
                                 hintStyle: GoogleFonts.poppins(fontSize: 13),
@@ -82,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Text(
                               "Email",
                               style: GoogleFonts.poppins(
@@ -90,8 +97,9 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.grey[600],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             TextFormField(
+                              controller: _emailController,
                               decoration: InputDecoration(
                                 hintText: "Enter your email",
                                 hintStyle: GoogleFonts.poppins(fontSize: 13),
@@ -109,7 +117,7 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Text(
                               "Password",
                               style: GoogleFonts.poppins(
@@ -117,12 +125,27 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Colors.grey[600],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
+                            // ✅ TAMBAHKAN suffixIcon UNTUK HIDE/SHOW PASSWORD
                             TextFormField(
+                              controller: _passwordController,
+                              obscureText: _obscurePassword,
                               decoration: InputDecoration(
                                 hintText: "Enter your password",
-                                // prefixIcon: Icon(Icons.), //pakaein icon mata di kanan nnti
                                 hintStyle: GoogleFonts.poppins(fontSize: 13),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscurePassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    size: 18,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.grey.shade600,
@@ -137,18 +160,36 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             SizedBox(
                               height: 45,
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomePage(),
-                                    ),
+                                onPressed: () async {
+                                  final result = await AuthService.register(
+                                    _nameController.text,
+                                    _emailController.text,
+                                    _passwordController.text,
                                   );
+
+                                  if (result['status'] == 201) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Register berhasil! Silakan login',
+                                        ),
+                                      ),
+                                    );
+                                    Navigator.pop(context);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          result['message'] ?? 'Register gagal',
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(350, 50),
@@ -162,14 +203,14 @@ class _SignupPageState extends State<SignupPage> {
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontWeight: .bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20),
                             Row(
-                              mainAxisAlignment: .center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   "Already have an account?",
@@ -180,7 +221,7 @@ class _SignupPageState extends State<SignupPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => LoginPage(),
+                                        builder: (context) => const LoginPage(),
                                       ),
                                     );
                                   },
@@ -206,5 +247,13 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
