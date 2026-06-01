@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:from_css_color/from_css_color.dart';
-import 'package:report_app/views/login_page.dart'; // 👈 IMPORT LOGIN PAGE
+import 'package:report_app/views/login_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -34,19 +34,35 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
             ),
 
-            Text(
-              "Report Easily!",
-              style: GoogleFonts.poppins(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: fromCssColor("#070625"),
-              ),
+            RichText(
+              text: TextSpan(
+                style: GoogleFonts.poppins(
+                  color: fromCssColor("#547792"),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold
+                ),
+                children: <TextSpan>[
+                  
+                  TextSpan(
+                    text: "Report ",
+                  ),
+                  
+                  TextSpan(
+                    text: "Easily!",
+                    style: GoogleFonts.poppins(
+                      color: fromCssColor("#FAB95B"),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold
+                    )
+                  )
+                ]
+              )
             ),
 
             const SizedBox(height: 20),
 
             Text(
-              "Track Every Report in Real-Time",
+              "Lacak Setiap Laporan Secara Real-Time",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -56,7 +72,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
 
             Text(
-              "Improving Facilities Through Technology",
+              "Meningkatkan Fasilitas Melalui Teknologi",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -69,7 +85,6 @@ class _WelcomePageState extends State<WelcomePage> {
 
             ElevatedButton(
               onPressed: () {
-                // 👈 KE LOGIN PAGE DULU
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),

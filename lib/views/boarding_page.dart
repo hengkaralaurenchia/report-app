@@ -31,18 +31,18 @@ class _BoardingPageState extends State<BoardingPage> {
             RichText(
               text: TextSpan(
                 style: GoogleFonts.poppins(
-                  color: fromCssColor("#070625"),
+                  color: fromCssColor("#547792"),
                   fontSize: 25,
                   fontWeight: FontWeight.bold
                 ),
                 children: <TextSpan>[
                   
                   TextSpan(
-                    text: "Welcome to "
+                    text: "Welcome to ",
                   ),
                   
                   TextSpan(
-                    text: "Maintena",
+                    text: "RepairMe",
                     style: GoogleFonts.poppins(
                       color: fromCssColor("#FAB95B"),
                       fontSize: 25,
@@ -57,7 +57,7 @@ class _BoardingPageState extends State<BoardingPage> {
             const SizedBox(height: 20),
 
             Text(
-              "Spot a Problem? Report It Instantly.",
+              "Menemukan Kerusakan? Segera laporkan!",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,
@@ -67,7 +67,7 @@ class _BoardingPageState extends State<BoardingPage> {
             ),
 
             Text(
-              "Report Facility Issues Quickly and Easily",
+              "Melapor Dengan Cepat dan Mudah",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 15,

@@ -37,6 +37,13 @@ dependencies:
   lottie: ^3.3.3
   google_fonts: ^8.1.0
   from_css_color: ^2.0.0
+  http: ^1.6.0
+  shared_preferences: ^2.5.5
+  image_picker: ^1.0.4
+  http_parser: ^4.0.0
+  pdf: ^3.10.4
+  share_plus: ^7.0.0
+  path_provider: ^2.0.0
 
 dev_dependencies:
   flutter_test:
