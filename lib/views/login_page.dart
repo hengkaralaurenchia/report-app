@@ -130,8 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const SizedBox(height: 40),
-
-                        // ✅ TOMBOL LOGIN DENGAN LOADING
                         _isLoading
                             ? Center(
                                 child: CircularProgressIndicator(
@@ -176,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                                     if (isSuccess) {
                                       if (!context.mounted) return;
 
-                                      // Ambil role dari SharedPreferences
+                                      // ambil role nya dari sharedpreference
                                       final prefs =
                                           await SharedPreferences.getInstance();
                                       final role =

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:report_app/services/notification_service.dart';
-import 'package:report_app/views/detail_report_page.dart';
+// import 'package:report_app/views/detail_report_page.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -118,7 +118,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
                 return GestureDetector(
                   onTap: () async {
-                    // Tandai sudah dibaca
+                    // tandai sudah dibaca
                     if (!isRead) {
                       await NotificationService.markAsRead(notification['id']);
                       setState(() {
@@ -126,7 +126,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       });
                     }
 
-                    // Tampilkan dialog dengan pesan notifikasi
+                    // tampilkan dialog dengan pesan notifikasi
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -175,7 +175,7 @@ class _NotificationPageState extends State<NotificationPage> {
                           TextButton(
                             onPressed: () async {
                               Navigator.pop(context);
-                              // Hapus notifikasi
+                              // hapus notifikasi
                               final result =
                                   await NotificationService.deleteNotification(
                                     notification['id'],

@@ -124,8 +124,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         elevation: 0,
         centerTitle: true,
         scrolledUnderElevation: 0,
-        // Di AppBar actions, tambahkan:
-        // Di AppBar actions, tambahkan:
         actions: [
           IconButton(
             icon: const Icon(Icons.picture_as_pdf, color: Colors.red),
@@ -150,7 +148,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       ),
       body: Column(
         children: [
-          // Statistik Card
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -172,7 +169,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 _buildStatCard(
                   "Diproses",
                   _totalProcessed,
-                  const Color(0xFFFAB95B), // ✅ warna kuning
+                  const Color(0xFFFAB95B),
                   const Color(0xFFFAB95B).withOpacity(0.2),
                 ),
                 const SizedBox(width: 8),
@@ -185,12 +182,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               ],
             ),
           ),
-          // Filter & Sort - FULL WIDTH
+          //filter dan sortingg
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                // Filter Dropdown (Expanded biar full)
+                //filter
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -220,7 +217,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                // Sort Dropdown (Expanded biar full)
+                //sort
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -328,7 +325,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       statusColor = Colors.orange;
       statusText = 'Pending';
     } else if (report['status'] == 'processed') {
-      statusColor = const Color(0xFFFAB95B); // ✅ warna kuning
+      statusColor = const Color(0xFFFAB95B);
       statusText = 'Diproses';
     } else {
       statusColor = Colors.green;
@@ -434,7 +431,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      userName, // ✅ nama singkat
+                      userName,
                       style: GoogleFonts.poppins(
                         fontSize: 11,
                         color: Colors.grey[500],

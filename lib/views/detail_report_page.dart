@@ -88,7 +88,7 @@ class _DetailReportPageState extends State<DetailReportPage> {
                     backgroundColor: Colors.green,
                   ),
                 );
-                // Kembali ke halaman sebelumnya
+                // kembali ke halaman sebelumnya
                 Navigator.pop(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -127,7 +127,7 @@ class _DetailReportPageState extends State<DetailReportPage> {
         builder: (context) => EditReportPage(report: widget.report),
       ),
     ).then((_) {
-      // Refresh detail setelah edit
+      // refresh detail setelah edit
       _fetchDetail();
     });
   }

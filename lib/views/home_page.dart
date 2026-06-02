@@ -415,7 +415,6 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Column(
         children: [
-          // Baris 1: Judul di kiri, Status di kanan
           Row(
             children: [
               Expanded(
@@ -447,7 +446,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const SizedBox(height: 10),
-          // Baris 2: Lokasi di kiri, Tanggal di kanan
           Row(
             children: [
               Row(

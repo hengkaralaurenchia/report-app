@@ -301,7 +301,7 @@ class _EditReportPageState extends State<EditReportPage> {
                     ),
                     const SizedBox(height: 24),
 
-                    // Foto Saat Ini (Preview)
+                    // Foto Saat Ini preview
                     if (widget.report['image'] != null) ...[
                       Text(
                         "Foto Saat Ini",
@@ -333,7 +333,7 @@ class _EditReportPageState extends State<EditReportPage> {
                       const SizedBox(height: 20),
                     ],
 
-                    // Ganti Foto (dengan akses kamera & galeri)
+                    // ganti foto
                     Text(
                       "Ganti Foto (Opsional)",
                       style: GoogleFonts.poppins(

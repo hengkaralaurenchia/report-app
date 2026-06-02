@@ -16,8 +16,6 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  // ✅ TAMBAHKAN INI
   bool _obscurePassword = true;
 
   @override
@@ -126,7 +124,6 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            // ✅ TAMBAHKAN suffixIcon UNTUK HIDE/SHOW PASSWORD
                             TextFormField(
                               controller: _passwordController,
                               obscureText: _obscurePassword,

@@ -36,13 +36,13 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
       _isLoading = true;
     });
 
-    // Mapping filter ke status
+    // mapping filter ke status
     String? status;
     if (_selectedFilter == 'Pending') status = 'pending';
     if (_selectedFilter == 'Diproses') status = 'processed';
     if (_selectedFilter == 'Selesai') status = 'done';
 
-    // Mapping sorting
+    // mapping sorting
     String? sortBy;
     String? order;
     switch (_selectedSort) {
@@ -204,7 +204,7 @@ class _ReportHistoryPageState extends State<ReportHistoryPage> {
                   final report = _reports[index];
                   return GestureDetector(
                     onTap: () {
-                      // Di history_page.dart
+                      // ke history
                       Navigator.push(
                         context,
                         MaterialPageRoute(

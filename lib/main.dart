@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:report_app/views/boarding_page.dart';
-import 'package:report_app/views/main_navigation.dart'; // ✅ TAMBAHKAN
+import 'package:report_app/views/main_navigation.dart';
 
 void main() {
   runApp(const MyApp());
