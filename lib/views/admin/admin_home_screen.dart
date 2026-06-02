@@ -6,7 +6,7 @@ import 'package:report_app/views/admin/update_status_page.dart';
 import 'package:report_app/services/auth_service.dart';
 import 'package:report_app/views/login_page.dart';
 import 'package:report_app/services/export_service.dart';
-import 'package:report_app/utils/string_helper.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -148,129 +148,288 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                _buildStatCard(
-                  "Total",
-                  _totalReports,
-                  const Color(0xFF547792),
-                  Colors.blue[50]!,
-                ),
-                const SizedBox(width: 8),
-                _buildStatCard(
-                  "Pending",
-                  _totalPending,
-                  Colors.orange,
-                  Colors.orange[50]!,
-                ),
-                const SizedBox(width: 8),
-                _buildStatCard(
-                  "Diproses",
-                  _totalProcessed,
-                  const Color(0xFFFAB95B),
-                  const Color(0xFFFAB95B).withOpacity(0.2),
-                ),
-                const SizedBox(width: 8),
-                _buildStatCard(
-                  "Selesai",
-                  _totalDone,
-                  Colors.green,
-                  Colors.green[50]!,
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Statistik Card
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  _buildStatCard(
+                    "Total",
+                    _totalReports,
+                    const Color(0xFF547792),
+                    Colors.blue[50]!,
+                  ),
+                  const SizedBox(width: 8),
+                  _buildStatCard(
+                    "Pending",
+                    _totalPending,
+                    Colors.orange,
+                    Colors.orange[50]!,
+                  ),
+                  const SizedBox(width: 8),
+                  _buildStatCard(
+                    "Diproses",
+                    _totalProcessed,
+                    const Color(0xFFFAB95B),
+                    const Color(0xFFFAB95B).withOpacity(0.2),
+                  ),
+                  const SizedBox(width: 8),
+                  _buildStatCard(
+                    "Selesai",
+                    _totalDone,
+                    Colors.green,
+                    Colors.green[50]!,
+                  ),
+                ],
+              ),
             ),
-          ),
-          //filter dan sortingg
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                //filter
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[300]!),
-                      borderRadius: BorderRadius.circular(8),
+
+            // pie chart
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey[200]!),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.05),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Statistik Status Laporan",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _selectedFilter,
-                        icon: const Icon(Icons.filter_list, size: 18),
-                        isExpanded: true,
-                        items: _filterOptions.map((filter) {
-                          return DropdownMenuItem(
-                            value: filter,
-                            child: Text(
-                              filter,
-                              style: GoogleFonts.poppins(fontSize: 13),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 200,
+                    child: PieChart(
+                      PieChartData(
+                        sections: [
+                          PieChartSectionData(
+                            value: _totalPending.toDouble(),
+                            title: 'Pending',
+                            color: Colors.orange,
+                            radius: 60,
+                            titleStyle: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          if (value != null) _updateFilter(value);
-                        },
+                          ),
+                          PieChartSectionData(
+                            value: _totalProcessed.toDouble(),
+                            title: 'Diproses',
+                            color: const Color(0xFFFAB95B),
+                            radius: 60,
+                            titleStyle: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                          PieChartSectionData(
+                            value: _totalDone.toDouble(),
+                            title: 'Selesai',
+                            color: Colors.green,
+                            radius: 60,
+                            titleStyle: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                        sectionsSpace: 2,
+                        centerSpaceRadius: 40,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                //sort
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey[300]!),
-                      borderRadius: BorderRadius.circular(8),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildLegend("Pending", Colors.orange),
+                      const SizedBox(width: 16),
+                      _buildLegend("Diproses", const Color(0xFFFAB95B)),
+                      const SizedBox(width: 16),
+                      _buildLegend("Selesai", Colors.green),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            //bar chart
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey[200]!),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.05),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Laporan per Bulan",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _selectedSort,
-                        icon: const Icon(Icons.sort, size: 18),
-                        isExpanded: true,
-                        items: _sortOptions.map((sort) {
-                          return DropdownMenuItem(
-                            value: sort,
-                            child: Text(
-                              sort,
-                              style: GoogleFonts.poppins(fontSize: 13),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 250,
+                    child: BarChart(
+                      BarChartData(
+                        alignment: BarChartAlignment.spaceAround,
+                        maxY: _getMaxReportCount().toDouble(),
+                        barGroups: _getBarGroups(),
+                        borderData: FlBorderData(show: false),
+                        gridData: const FlGridData(show: true),
+                        titlesData: FlTitlesData(
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: true),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (value, meta) {
+                                const months = [
+                                  'Jan',
+                                  'Feb',
+                                  'Mar',
+                                  'Apr',
+                                  'Mei',
+                                  'Jun',
+                                ];
+                                if (value.toInt() >= 0 &&
+                                    value.toInt() < months.length) {
+                                  return Text(
+                                    months[value.toInt()],
+                                    style: GoogleFonts.poppins(fontSize: 10),
+                                  );
+                                }
+                                return const Text('');
+                              },
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          if (value != null) _updateSort(value);
-                        },
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          // List Laporan
-          Expanded(
-            child: _isLoading
+
+            // Filter & Sort
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _selectedFilter,
+                          icon: const Icon(Icons.filter_list, size: 18),
+                          isExpanded: true,
+                          items: _filterOptions.map((filter) {
+                            return DropdownMenuItem(
+                              value: filter,
+                              child: Text(
+                                filter,
+                                style: GoogleFonts.poppins(fontSize: 13),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            if (value != null) _updateFilter(value);
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey[300]!),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _selectedSort,
+                          icon: const Icon(Icons.sort, size: 18),
+                          isExpanded: true,
+                          items: _sortOptions.map((sort) {
+                            return DropdownMenuItem(
+                              value: sort,
+                              child: Text(
+                                sort,
+                                style: GoogleFonts.poppins(fontSize: 13),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            if (value != null) _updateSort(value);
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // List Laporan
+            _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _reports.isEmpty
-                ? Center(
+                ? const Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.inbox, size: 64, color: Colors.grey[300]),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Tidak ada laporan',
-                          style: GoogleFonts.poppins(color: Colors.grey[400]),
-                        ),
+                        Icon(Icons.inbox, size: 64, color: Colors.grey),
+                        SizedBox(height: 8),
+                        Text('Tidak ada laporan'),
                       ],
                     ),
                   )
                 : ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(16),
                     itemCount: _reports.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
@@ -279,10 +438,67 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       return _buildReportCard(report);
                     },
                   ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _buildLegend(String title, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          title,
+          style: GoogleFonts.poppins(fontSize: 11, color: Colors.grey[600]),
+        ),
+      ],
+    );
+  }
+
+  List<BarChartGroupData> _getBarGroups() {
+    final monthlyData = _getMonthlyReportCount();
+    return List.generate(6, (index) {
+      return BarChartGroupData(
+        x: index,
+        barRods: [
+          BarChartRodData(
+            toY: monthlyData[index].toDouble(),
+            color: const Color(0xFF547792),
+            width: 30,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ],
+      );
+    });
+  }
+
+  List<int> _getMonthlyReportCount() {
+    List<int> monthlyCount = List.filled(6, 0);
+    for (var report in _reports) {
+      final createdAt = report['createdAt'];
+      if (createdAt != null) {
+        try {
+          final month = DateTime.parse(createdAt).month;
+          if (month >= 1 && month <= 6) {
+            monthlyCount[month - 1]++;
+          }
+        } catch (e) {}
+      }
+    }
+    return monthlyCount;
+  }
+
+  double _getMaxReportCount() {
+    final monthlyData = _getMonthlyReportCount();
+    return monthlyData.isEmpty
+        ? 10
+        : (monthlyData.reduce((a, b) => a > b ? a : b) + 2).toDouble();
   }
 
   Widget _buildStatCard(String title, int count, Color color, Color bgColor) {
