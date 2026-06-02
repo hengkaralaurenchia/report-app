@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:report_app/services/report_service.dart';
+import 'package:report_app/utils/string_helper.dart';
 import 'package:report_app/views/admin/update_status_page.dart';
 import 'package:report_app/services/auth_service.dart';
 import 'package:report_app/views/login_page.dart';
 import 'package:report_app/services/export_service.dart';
+import 'package:report_app/utils/string_helper.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -332,15 +334,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       statusText = 'Selesai';
     }
 
-    // ambil nama user
-    String userName = report['user']?['name'] ?? '-';
-    if (userName != '-') {
-      //ambil kata pertama aja
-      List<String> nameParts = userName.split(' ');
-      if (nameParts.isNotEmpty) {
-        userName = nameParts[0];
-      }
-    }
+    String userName = StringHelper.getFirstName(report['user']?['name'] ?? '-');
 
     return GestureDetector(
       onTap: isDone

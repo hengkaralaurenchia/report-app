@@ -10,6 +10,7 @@ import 'package:report_app/views/add_report_page.dart';
 import 'package:report_app/services/auth_service.dart';
 import 'package:report_app/views/login_page.dart';
 import 'package:report_app/services/report_service.dart';
+import 'package:report_app/utils/string_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -109,11 +110,10 @@ class _HomePageState extends State<HomePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Welcome $_username! 👋🏻",
+                  Text("Welcome ${StringHelper.getFirstName(_username)}! 👋🏻", 
                     style: GoogleFonts.poppins(
                       fontSize: 25,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w600
                     ),
                   ),
                   const SizedBox(height: 5),

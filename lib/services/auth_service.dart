@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static Future<bool> login(String email, String password) async {
-    final url = "${ApiConfig.baseUrl}/auth/";
+    final url = "${ApiConfig.baseUrl}/auth/login";
 
     print("Menembak ke URL: $url");
     print("Data yang dikirim: email=$email, password=$password");
